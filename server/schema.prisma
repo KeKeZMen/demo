@@ -1,0 +1,49 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id          String @id @default(uuid())
+  name        String
+  email       String @unique
+  phoneNumber String @map("phone_number")
+  password    String
+  departament String
+  role        Role   @default(USER)
+
+  @@index([id])
+  @@map("users")
+}
+
+model Category {
+  id   String @id @default(uuid())
+  name String
+
+  @@index([id])
+  @@map("categories")
+}
+
+model Request {
+  id          String        @id @default(uuid())
+  description String
+  status      RequestStatus
+
+  @@index([id])
+  @@map("requests")
+}
+
+enum RequestStatus {
+  DONE
+  REJECTED
+  NEW
+}
+
+enum Role {
+  ADMIN
+  USER
+}
