@@ -16,6 +16,8 @@ model User {
   departament String
   role        Role   @default(USER)
 
+  requests Request[]
+
   @@index([id])
   @@map("users")
 }
@@ -23,6 +25,8 @@ model User {
 model Category {
   id   String @id @default(uuid())
   name String
+
+  requests Request[]
 
   @@index([id])
   @@map("categories")
@@ -32,6 +36,11 @@ model Request {
   id          String        @id @default(uuid())
   description String
   status      RequestStatus
+  userId      String
+  categoryId  String
+
+  category Category @relation(fields: [categoryId], references: [id])
+  user     User     @relation(fields: [userId], references: [id])
 
   @@index([id])
   @@map("requests")
