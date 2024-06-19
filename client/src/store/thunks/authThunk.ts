@@ -39,7 +39,7 @@ export const reauthUser = createAsyncThunk(
   async (_, thunkApi) => {
     try {
       const result = await axios.get<IAuthResponse>(
-        `${import.meta.env.VITE_SERVER_URL}/refresh`,
+        `http://localhost:3000/refresh`,
         { withCredentials: true }
       );
       localStorage.setItem("token", result.data.token);
@@ -51,23 +51,10 @@ export const reauthUser = createAsyncThunk(
   }
 );
 
-export const logoutUser = createAsyncThunk(
-  "auth/logout",
-  async (_, thunkApi) => {
-    try {
-      localStorage.clear();
-      return await $api.post("/users/logout");
-    } catch (axiosError) {
-      const error = axiosError as AxiosError;
-      return thunkApi.rejectWithValue(error.response?.data);
-    }
-  }
-);
-
 export const registrationUser = createAsyncThunk(
   "auth/registration",
   async (
-    { departament, email, phoneNumber, password }: RegisterType,
+    { departament, email, phoneNumber, password, name }: RegisterType,
     thunkApi
   ) => {
     try {
@@ -76,6 +63,7 @@ export const registrationUser = createAsyncThunk(
         email,
         phoneNumber,
         password,
+        name
       });
       localStorage.setItem("token", result.data.token);
       return result.data.user;

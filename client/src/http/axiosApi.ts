@@ -1,7 +1,7 @@
 import axios from "axios";
 import IAuthResponse from "../models/IAuthResponse";
 
-const API_URL = `http://127.0.0.1:3000`;
+const API_URL = `http://localhost:3000`;
 
 const $api = axios.create({
   withCredentials: true,

@@ -5,15 +5,16 @@ import { useAppDispatch } from "./hooks/reduxHooks";
 import { reauthUser } from "./store/thunks/authThunk";
 import "./index.css";
 
-const Loginpage = lazy(() => import("./pages/LoginPage"));
-const Registerpage = lazy(() => import("./pages/RegisterPage"));
+import Loginpage from "./pages/LoginPage";
+import Registerpage from "./pages/RegisterPage";
+// const Registerpage = lazy(() => import("./pages/RegisterPage"));
 
 function App() {
   const dispatch = useAppDispatch();
 
-  useEffect(() => {
-    if (localStorage.getItem("token")) dispatch(reauthUser());
-  }, []);
+  // useEffect(() => {
+  //   if (localStorage.getItem("token")) dispatch(reauthUser());
+  // }, []);
 
   return (
     <Routes>
